@@ -16,6 +16,7 @@
     "description": "Weather pill with detail popup",
     "category": "Info",
     "allowMultiple": false,
+    "defaultSection": "center",
     "settingsForm": "weatherSettings"
   },
   "omarchy": {

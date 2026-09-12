@@ -1,7 +1,13 @@
-# Barista Weather
+# omarchy-barista-weather
 
-Omarchy bar-widget weather plugin (`barista.weather`, cloned from stock
-`omarchy.weather`): weather pill with detail popup.
+Omarchy bar-widget weather plugin (`barista.weather`): weather pill with
+detail popup, styled to match the
+[barista theme](https://github.com/Flyvendestruds/omarchy-barista-theme)
+but installable on its own.
+
+```
+omarchy plugin add https://github.com/Flyvendestruds/omarchy-barista-weather.git --enable
+```
 
 ## What's custom
 
@@ -31,9 +37,24 @@ Omarchy bar-widget weather plugin (`barista.weather`, cloned from stock
 - `icons/` — PNG set (RGBA, ~90–200px). Source of truth for artwork lives
   outside this repo; sync with `cp <artwork>/*.png icons/`.
 - `manifest.json` — plugin manifest (`barista.weather`, `clonedFrom:
-  omarchy.weather`).
+  omarchy.weather` so enabling it swaps the stock weather widget in place).
 
 ## Install
 
-Copy (or symlink) this directory to
-`~/.config/omarchy/plugins/barista.weather/` and reshell / refresh the panel.
+Standalone (any theme):
+
+```
+omarchy plugin add https://github.com/Flyvendestruds/omarchy-barista-weather.git --enable
+```
+
+With barista, it is an optional add-on: the theme's `setup.sh` offers a
+`weather` step that installs + enables this repo. Uninstall any time with
+`omarchy plugin remove barista.weather` — the stock `omarchy.weather`
+returns to the bar slot automatically.
+
+## Development
+
+Edit the installed copy at `~/.config/omarchy/plugins/barista.weather/`,
+then copy back here (`BarWidget.qml`, `Panel.qml`, `Model.js`,
+`manifest.json`, `icons/`). `Model.js` stays shell-free so logic can be
+checked with `node --check` / `node -e require(...)`.
