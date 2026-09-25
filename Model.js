@@ -562,24 +562,18 @@ function hourlyRainRich(hour, useImperial) {
   return base + " · " + '<font color="' + color + '">' + amount + "</font>"
 }
 
-// Sky-state words from cloud cover %. Wide buckets on purpose: 19% vs 21%
-// is noise, not information. Driven off cloud_cover only, so the word and
-// the condition icon (from weather_code) always agree on the story.
-function hourlySky(value) {
-  if (value === undefined || value === null || value === "") return "—"
-  var n = parseFloat(String(value))
-  if (isNaN(n)) return "—"
-  if (n < 12) return "Clear"
-  if (n < 37) return "Fair"
-  if (n < 62) return "Part cloudy"
-  if (n < 87) return "Cloudy"
-  return "Overcast"
-}
-
 function hourlyUv(value) {
   if (value === undefined || value === null || value === "") return "—"
   var n = parseFloat(String(value))
   return isNaN(n) ? "—" : String(Math.round(n))
+}
+
+// Visible unless the rounded UV is 0 or missing — hides the "UV 0" row
+// (notably at night) so the hourly strip stays compact.
+function isUvVisible(value) {
+  if (value === undefined || value === null || value === "") return false
+  var n = parseFloat(String(value))
+  return !isNaN(n) && Math.round(n) > 0
 }
 
 // Semantic color for the UV row: "" means low/none (caller keeps the
@@ -789,8 +783,8 @@ if (typeof module !== "undefined") {
     hourlyPrecipColor: hourlyPrecipColor,
     hourlyRain: hourlyRain,
     hourlyRainRich: hourlyRainRich,
-    hourlySky: hourlySky,
     hourlyUv: hourlyUv,
+    isUvVisible: isUvVisible,
     hourlyUvColor: hourlyUvColor,
     hourlyIcon: hourlyIcon,
     dayIcon: dayIcon,

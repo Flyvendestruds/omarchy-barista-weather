@@ -12,8 +12,7 @@ omarchy plugin add https://github.com/Flyvendestruds/omarchy-barista-weather.git
 ## What's custom
 
 - **Hourly strip** — next 12 hours with temp, rain chance + expected amount
-  (`Rain 32% · 0.4mm`, mm or in following the temp unit), cloud-cover words,
-  UV index.
+  (`Rain 32% · 0.4mm`, mm or in following the temp unit), UV index.
 - **PNG condition icons** (hero, hourly, daily) — user-supplied skeuomorphic
   set in `icons/`. Selection is driven by Open-Meteo `weather_code` plus
   `cloud_cover` with a 70% rule: rain/drizzle codes show `rainy.png` at

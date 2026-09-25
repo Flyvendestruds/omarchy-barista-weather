@@ -373,12 +373,13 @@ Panel {
     return Model.hourlyRain(hour, useImperial)
   }
 
-  function hourlySky(value) {
-    return Model.hourlySky(value)
-  }
-
   function hourlyUv(value) {
     return Model.hourlyUv(value)
+  }
+
+  // Drives visible on the UV row: hidden when the value rounds to 0.
+  function isUvVisible(value) {
+    return Model.isUvVisible(value)
   }
 
   function hourlyIcon(hour) {
@@ -947,7 +948,7 @@ Panel {
         opacity: 0.12
       }
 
-      // ---- Hourly strip: next 12 hours (temp, rain, cloud, UV) above the 3-day row.
+      // ---- Hourly strip: next 12 hours (temp, rain, UV) above the 3-day row.
       Item {
         visible: root.hourlyForecast.length > 0
         width: parent.width
@@ -1038,16 +1039,7 @@ Panel {
                   }
                   Text {
                     textFormat: Text.PlainText
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
-                    text: root.hourlySky(modelData.cloud)
-                    color: root.inkDim(1.5)
-                    font.family: root.bar.fontFamily
-                    font.features: { "tnum": 1 }
-                    font.pixelSize: Style.font.bodySmall
-                  }
-                  Text {
-                    textFormat: Text.PlainText
+                    visible: root.isUvVisible(modelData.uv)
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
                     text: "UV " + root.hourlyUv(modelData.uv)
